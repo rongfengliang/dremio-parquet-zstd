@@ -24,7 +24,7 @@ services:
       - "3306:3306"
   dremio:
     build: ./
-    image: dalongrong/dremio:23.1-jprofiler
+    image: dalongrong/dremio:23.1-zstd
     volumes:
       - ./dat:/data
     ports:
