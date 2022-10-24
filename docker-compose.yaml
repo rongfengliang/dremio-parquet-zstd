@@ -1,0 +1,33 @@
+version: "3"
+services:
+  mongo:
+    image: mongo:4.2
+    environment:
+      - "MONGO_INITDB_ROOT_USERNAME=root"
+      - "MONGO_INITDB_ROOT_PASSWORD=dalongdemo"
+    ports:
+      - "27017:27017"
+  minio:
+    image: minio/minio
+    ports:
+      - "9002:9000"
+      - "19001:19001"
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: minio123
+    command: server --console-address :19001 --quiet /data
+  mysql:
+    image: mysql:5.6
+    environment:
+      - "MYSQL_ROOT_PASSWORD=dalong"
+    ports:
+      - "3306:3306"
+  dremio:
+    build: ./
+    image: dalongrong/dremio:23.1-jprofiler
+    volumes:
+      - ./dat:/data
+    ports:
+      - "9047:9047"
+      - "8849:8849"
+      - "31010:31010"
